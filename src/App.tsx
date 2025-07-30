@@ -38,6 +38,20 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
+  const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const isDesktop = window.innerWidth >= 1024;
+  if (isDesktop) {
+    e.preventDefault();
+    const target = document.getElementById("calendly-section");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    window.open("https://calendly.com/narayanaditya/1hour", "_blank");
+  }
+};
+
+
   useEffect(() => {
     // Initialize Lenis scroll
     const lenis = new Lenis({
@@ -75,20 +89,7 @@ const App = () => {
 
     animate();
     window.addEventListener("mousemove", handleMouseMove);
-
-const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  const isDesktop = window.innerWidth >= 1024;
-  if (isDesktop) {
-    e.preventDefault();
-    const target = document.getElementById("calendly-section");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  } else {
-    window.open("https://calendly.com/narayanaditya/1hour", "_blank");
-  }
-};
-
+    
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       lenis.destroy();
