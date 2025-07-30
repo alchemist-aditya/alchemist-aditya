@@ -263,7 +263,7 @@ const App = () => {
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
       <div className="cursor-dot" ref={dotRef} />
-      <canvas id="glowAurora" class="aurora-canvas"></canvas>
+      <canvas id="glowAurora" className="aurora-canvas"></canvas>
       <div className="desktop-nav">
         <Navbar />
       </div>
