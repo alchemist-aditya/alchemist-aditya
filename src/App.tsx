@@ -403,9 +403,11 @@ const App = () => {
         </Section>
       </section>
 
+      <section id="calendly-section">
       <Section>
         <CalendlySection />
       </Section>
+        </section>
 
       {/* FAQ SECTION */}
       <section id="faq-section">
