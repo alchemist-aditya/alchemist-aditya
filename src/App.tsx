@@ -76,6 +76,18 @@ const App = () => {
     animate();
     window.addEventListener("mousemove", handleMouseMove);
 
+      const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isDesktop = window.innerWidth >= 1024; // adjust breakpoint if needed
+    if (isDesktop) {
+      e.preventDefault();
+      const target = document.getElementById("calendly-section");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    // else let default behavior (Calendly link) happen
+  };
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       lenis.destroy();
