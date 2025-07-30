@@ -449,16 +449,25 @@ const App = () => {
             Let’s bring your content to life.
           </h2>
 
-          <a
-            href="https://calendly.com/narayanaditya/1hour"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="primary-button shine-sweep">
-              Book a Free Call
-            </button>
-          </a>
-
+   <motion.button
+  className="primary-button shine-sweep"
+  whileHover={{ scale: 1.08 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={(e) => {
+    const isDesktop = window.innerWidth >= 1024;
+    if (isDesktop) {
+      e.preventDefault();
+      const section = document.getElementById("calendly-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.open("https://calendly.com/narayanaditya/1hour", "_blank");
+    }
+  }}
+>
+  Book a Free Call
+</motion.button>
           <div className="compact-footer-grid">
             <div className="footer-item">
               <span className="footer-label">🔗 Connect</span>
