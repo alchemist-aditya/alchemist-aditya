@@ -38,17 +38,24 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
-  const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  const isDesktop = window.innerWidth >= 1024;
-  if (isDesktop) {
-    e.preventDefault();
-    const target = document.getElementById("calendly-section");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isDesktop = window.innerWidth >= 1024;
+    if (isDesktop) {
+      e.preventDefault();
+      const section = document.getElementById("calendly-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.open("https://calendly.com/narayanaditya/1hour", "_blank");
     }
-  } else {
-    window.open("https://calendly.com/narayanaditya/1hour", "_blank");
-  }
+  };
+
+  return (
+    <motion.button onClick={handleBookClick}>
+      Book a Free Call
+    </motion.button>
+  );
 };
 
 
