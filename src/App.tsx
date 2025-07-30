@@ -228,8 +228,8 @@ const App = () => {
       ctx.clearRect(0, 0, w, h);
 
       blobs.forEach((b) => {
-        b.x += b.dx + (mouse.x - w / 2) * 0.0005;
-        b.y += b.dy + (mouse.y - h / 2) * 0.0005;
+        b.x += b.dx + (mouse.x - w / 2) * 0.0009;
+        b.y += b.dy + (mouse.y - h / 2) * 0.0009;
 
         if (b.x < -b.r || b.x > w + b.r) b.dx *= -1;
         if (b.y < -b.r || b.y > h + b.r) b.dy *= -1;
