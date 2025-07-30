@@ -463,22 +463,11 @@ const App = () => {
             Let’s bring your content to life.
           </h2>
 
-   <motion.button
+  <motion.button
   className="primary-button shine-sweep"
   whileHover={{ scale: 1.08 }}
   whileTap={{ scale: 0.95 }}
-  onClick={(e) => {
-    const isDesktop = window.innerWidth >= 1024;
-    if (isDesktop) {
-      e.preventDefault();
-      const section = document.getElementById("calendly-section");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      window.open("https://calendly.com/narayanaditya/1hour", "_blank");
-    }
-  }}
+  onClick={handleBookClick}
 >
   Book a Free Call
 </motion.button>
