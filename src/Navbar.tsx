@@ -18,7 +18,12 @@ const Navbar = () => {
       transition={{
         duration: 0.6,
         delay: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94], // smooth out ease
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      style={{
+        position: "fixed",
+        left: "50%",
+        transform: "translateX(-50%)",
       }}
     >
       <motion.div
