@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
 <motion.div
   className="navbar-container"
-  initial={{ y: -80, opacity: 0 }}
+  initial={{ y: -80, x: "-50%", opacity: 0 }}
   animate={{ y: 0, opacity: 1, x: "-50%" }} // ← Include translateX!
   transition={{
     duration: 0.6,
