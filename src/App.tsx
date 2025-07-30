@@ -76,17 +76,18 @@ const App = () => {
     animate();
     window.addEventListener("mousemove", handleMouseMove);
 
-      const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const isDesktop = window.innerWidth >= 1024; // adjust breakpoint if needed
-    if (isDesktop) {
-      e.preventDefault();
-      const target = document.getElementById("calendly-section");
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
+const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const isDesktop = window.innerWidth >= 1024;
+  if (isDesktop) {
+    e.preventDefault();
+    const target = document.getElementById("calendly-section");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
     }
-    // else let default behavior (Calendly link) happen
-  };
+  } else {
+    window.open("https://calendly.com/narayanaditya/1hour", "_blank");
+  }
+};
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
