@@ -11,21 +11,20 @@ const Navbar = () => {
   };
 
   return (
-    <motion.div
-      className="navbar-container"
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        duration: 0.6,
-        delay: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      style={{
-        position: "fixed",
-        left: "50%",
-        transform: "translateX(-50%)",
-      }}
-    >
+<motion.div
+  className="navbar-container"
+  initial={{ y: -80, opacity: 0 }}
+  animate={{ y: 0, opacity: 1, x: "-50%" }} // ← Include translateX!
+  transition={{
+    duration: 0.6,
+    delay: 0.6,
+    ease: [0.25, 0.46, 0.45, 0.94],
+  }}
+  style={{
+    position: "fixed",
+    left: "50%",
+  }}
+>
       <motion.div
         className="navbar-logo alchemy-core-wrapper"
         whileHover={{ scale: 1.3, rotate: -5 }}
