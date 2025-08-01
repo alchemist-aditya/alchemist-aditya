@@ -10,7 +10,7 @@ const videoData = [
     thumbnail: "/thumbnail/video1.png",
   },
   {
-    url: "https://www.youtube.com/embed/UvqrnVvD_GA",
+    url: "https://www.youtube.com/embed/6kpWiaNMStA",
     thumbnail: "/thumbnail/video2.png",
   },
   {
