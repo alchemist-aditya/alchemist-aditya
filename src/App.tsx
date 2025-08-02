@@ -433,6 +433,8 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
               "How do I request edits?",
               "How does the process work?",
               "What if I’m not satisfied?",
+              "Can you help build my content style or visual brand?",
+
             ].map((q, i) => (
               <details key={i} className="faq-item tilt-faq">
                 <summary>
@@ -445,6 +447,7 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
                       " I keep feedback simple — you’ll get a private review link where you can comment directly on the video, or just send notes via email or WhatsApp. Whatever’s easiest for you.",
                       "We start with a quick strategy call to align on tone, pace, and goals. You’ll then send your raw footage (Google Drive, Dropbox, or WeTransfer — whatever works), and I take it from there. Clean cuts, aligned style, fast delivery.",
                       " I offer unlimited revisions, because the goal isn’t to “deliver a file” — it’s to deliver something you actually want to post. I’ll refine until it hits the mark, 100% guaranteed.",
+                      "Absolutely — many creators come to me before their content style is fully locked. I help shape the look, subtitle style, color palette, and motion rhythm based on your audience.",
                     ][i]
                   }
                 </p>
