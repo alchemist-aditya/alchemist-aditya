@@ -443,7 +443,7 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
                     [
                       "Most edits are delivered within 2–3 business days. Urgent 24-hour turnarounds are available if planned ahead. I balance speed with storytelling, so your videos are sharp, not rushed.",
                       " I keep feedback simple — you’ll get a private review link where you can comment directly on the video, or just send notes via email or WhatsApp. Whatever’s easiest for you.",
-                      "You’ll then send your raw footage (Google Drive, Dropbox, or WeTransfer — whatever works), and I take it from there. Clean cuts, aligned style, fast delivery.",
+                      "We start with a quick strategy call to align on tone, pace, and goals. You’ll then send your raw footage (Google Drive, Dropbox, or WeTransfer — whatever works), and I take it from there. Clean cuts, aligned style, fast delivery.",
                       " I offer unlimited revisions, because the goal isn’t to “deliver a file” — it’s to deliver something you actually want to post. I’ll refine until it hits the mark, 100% guaranteed.",
                     ][i]
                   }
