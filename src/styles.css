@@ -947,7 +947,6 @@ section p {
   }
 }
 
-/* === Video Panel === */
 .video-panel {
   background: linear-gradient(
     120deg,
@@ -961,27 +960,25 @@ section p {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ Clean, single video-grid definition */
+/* ✅ One and only one video-grid definition */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Desktop default */
   gap: 30px;
   margin-top: 20px;
-}
-
-/* === Responsive Grid for Video Section === */
-
-/* ✅ Mobile: ≤ 767px = 1 column */
-@media (max-width: 767px) {
-  .video-grid {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(3, 1fr); /* Desktop default */
 }
 
 /* ✅ Tablet: 768px to 1024px = 2 columns */
 @media (min-width: 768px) and (max-width: 1024px) {
   .video-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ✅ Mobile: 767px and below = 1 column */
+@media (max-width: 767px) {
+  .video-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1011,7 +1008,6 @@ section p {
   box-shadow: 0 0 0 4px rgba(180, 138, 255, 0.3);
 }
 
-/* YouTube logo behavior */
 .youtube-logo {
   position: absolute;
   inset: 0;
@@ -1021,11 +1017,6 @@ section p {
   filter: grayscale(1);
   transition: filter 0.3s ease, transform 0.3s ease;
   z-index: 2;
-}
-
-.youtube-logo:hover {
-  filter: grayscale(0);
-  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
