@@ -1060,6 +1060,21 @@ section p {
   object-fit: cover; /* You can try "contain" if "cover" looks bad */
   border-radius: 0.75rem; /* rounded-xl */
 }
+/* === Responsive Grid for Video Section === */
+
+/* Tablet: 768px to 1024px — 2 columns */
+@media (max-width: 1024px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 767px and below — 1 column */
+@media (max-width: 767px) {
+  .video-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
 /* === Why Work With Me Glass Panels === */
 .glass-panels {
