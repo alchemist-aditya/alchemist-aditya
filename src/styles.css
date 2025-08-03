@@ -947,6 +947,7 @@ section p {
   }
 }
 
+/* === Video Panel === */
 .video-panel {
   background: linear-gradient(
     120deg,
@@ -960,26 +961,31 @@ section p {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ One and only one video-grid definition */
 .video-grid {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 20px;
-  grid-template-columns: repeat(3, 1fr); /* Desktop default */
 }
 
-/* ✅ Tablet: 768px to 1024px = 2 columns */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .video-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.video-panel {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0)
+  );
+  border-radius: 24px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ Mobile: 767px and below = 1 column */
-@media (max-width: 767px) {
-  .video-grid {
-    grid-template-columns: 1fr;
-  }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .video-item {
@@ -1008,6 +1014,8 @@ section p {
   box-shadow: 0 0 0 4px rgba(180, 138, 255, 0.3);
 }
 
+/* YouTube logo behavior */
+/* Base (Desktop) */
 .youtube-logo {
   position: absolute;
   inset: 0;
@@ -1019,6 +1027,13 @@ section p {
   z-index: 2;
 }
 
+/* Hover effect (optional, can be edited per screen if needed) */
+.youtube-logo:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+/* Tablet: 768px and below */
 @media (max-width: 768px) {
   .youtube-logo {
     width: 72px;
@@ -1026,6 +1041,7 @@ section p {
   }
 }
 
+/* Mobile: 480px and below */
 @media (max-width: 480px) {
   .youtube-logo {
     width: 48px;
@@ -1041,10 +1057,9 @@ section p {
   width: 100%;
   height: auto;
   aspect-ratio: 9 / 16;
-  object-fit: cover;
-  border-radius: 0.75rem;
+  object-fit: cover; /* You can try "contain" if "cover" looks bad */
+  border-radius: 0.75rem; /* rounded-xl */
 }
-
 
 /* === Why Work With Me Glass Panels === */
 .glass-panels {
