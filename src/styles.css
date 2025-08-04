@@ -1377,6 +1377,15 @@ section p {
   animation: fadeInUp 0.3s ease-in-out;
 }
 
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+  transition: transform 0.3s cubic-bezier(.66,1.47,.62,.89);
+}
+.faq-icon {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(.66,1.47,.62,.89);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
