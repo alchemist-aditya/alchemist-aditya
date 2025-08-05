@@ -55,9 +55,9 @@ const RippleButton = ({
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   style?: React.CSSProperties;
 }) => {
-  const btnRef = useRef(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
-  const doRipple = (e) => {
+  const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = btnRef.current;
     if (!btn) return;
     const circle = document.createElement("span");
