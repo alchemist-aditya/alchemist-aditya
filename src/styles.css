@@ -60,7 +60,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2147483647; /* top */
+  z-index: 2147483647;
 }
 
 .page-ripple {
@@ -70,19 +70,15 @@ body {
   border-radius: 50%;
   background: rgba(192, 132, 252, 0.24);
   border: 2px solid #c084fc6d;
-  transform: translate(-50%, -50%) scale(0.6);
-  opacity: 1;
   pointer-events: none;
-  animation: pageRippleAnim 0.5s cubic-bezier(.22,1,.36,1);
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 1;
+  animation: pageRippleAnim 0.5s cubic-bezier(.22,1,.36,1) both;
 }
-
 @keyframes pageRippleAnim {
   from {
     opacity: 0.55;
     transform: translate(-50%, -50%) scale(0.7);
-  }
-  90% {
-    opacity: 0.13;
   }
   to {
     opacity: 0;
