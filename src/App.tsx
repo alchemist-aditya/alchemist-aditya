@@ -80,7 +80,7 @@ const RippleButton = ({
       ref={btnRef}
       className="glass-button"
       whileTap="tap"
-      variants={bounceTap}
+      variants={bounceTap as any}
       onClick={(e) => {
         doRipple(e);
         if (onClick) onClick(e);
