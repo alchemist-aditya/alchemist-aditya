@@ -73,10 +73,10 @@ const RippleButton = ({
 
   return (
     <motion.button
-      ref={btnRef}
-      className="glass-button"
-      whileTap="tap"
-      variants={bounceTap}
+ ref={btnRef}
+  className="glass-button"
+  whileTap="tap"
+  variants={bounceTap as any}
       onClick={(e) => {
         doRipple(e);
         onClick && onClick(e);
