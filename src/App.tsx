@@ -51,7 +51,9 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 
- useEffect(() => {
+const ripplesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const ripple = document.createElement("div");
       ripple.className = "page-ripple";
@@ -63,18 +65,10 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         ripple.remove();
       }, 600);
     };
+
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
   }, []);
-
-  // Place this container at the end of your JSX, NOT inside the button!
-  return (
-    <div>
-      {/* ...your components... */}
-      <div ref={ripplesRef} className="ripple-layer" />
-    </div>
-  );
-};
 
   useEffect(() => {
     // Initialize Lenis scroll
