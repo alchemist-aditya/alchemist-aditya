@@ -35,26 +35,21 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const bounceTap: Variants = {
-  tap: { scale: 0.97, boxShadow: "0 5px 20px 0 #c084fc80" },
+const bounceTap = {
+  tap: {
+    scale: 0.95,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 10,
+    },
+  },
 };
 
+const RippleButton = ({ children, onClick, style }) => {
+  const btnRef = useRef(null);
 
-interface RippleButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  style?: React.CSSProperties;
-}
-
-
-const RippleButton: React.FC<RippleButtonProps> = ({
-  children,
-  onClick,
-  style,
-}) => {
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const doRipple = (e) => {
     const btn = btnRef.current;
     if (!btn) return;
     const circle = document.createElement("span");
@@ -79,13 +74,11 @@ const RippleButton: React.FC<RippleButtonProps> = ({
         onClick && onClick(e);
       }}
       style={style}
-      // do NOT spread ...props
     >
       {children}
     </motion.button>
   );
 };
-
 
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
