@@ -295,6 +295,7 @@ const ripplesRef = useRef<HTMLDivElement>(null);
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
       
+       <div ref={ripplesRef} className="ripple-layer" />
       <div className="cursor-dot" ref={dotRef} />
       <canvas id="glowAurora" className="aurora-canvas"></canvas>
       <div className="desktop-nav">
