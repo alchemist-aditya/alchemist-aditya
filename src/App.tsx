@@ -46,7 +46,15 @@ const bounceTap = {
   },
 };
 
-const RippleButton = ({ children, onClick, style }) => {
+const RippleButton = ({
+  children,
+  onClick,
+  style,
+}: {
+  children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  style?: React.CSSProperties;
+}) {
   const btnRef = useRef(null);
 
   const doRipple = (e) => {
