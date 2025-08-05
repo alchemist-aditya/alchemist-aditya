@@ -35,15 +35,8 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const bounceTap = {
-  tap: {
-    scale: 0.95,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10,
-    },
-  },
+const bounceTap: Variants = {
+  tap: { scale: 0.97, boxShadow: "0 5px 20px 0 #c084fc80" },
 };
 
 
