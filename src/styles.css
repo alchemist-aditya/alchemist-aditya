@@ -55,6 +55,35 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.cursor-ripple {
+  position: fixed;
+  pointer-events: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(192, 132, 252, 0.14);
+  border: 2px solid #c084fc6d;
+  z-index: 10000;
+  opacity: 1;
+  animation: cursorRippleAnim 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  left: 0;
+  top: 0;
+}
+@keyframes cursorRippleAnim {
+  from {
+    opacity: 0.48;
+    transform: scale(0.7);
+  }
+  90% {
+    opacity: 0.16;
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+
 /* === Main Container === */
 .app-container {
   max-width: 1200px;
