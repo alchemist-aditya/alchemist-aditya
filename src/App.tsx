@@ -333,6 +333,9 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
+
+      <RippleButton>Click Me</RippleButton>
+      
       <div className="cursor-dot" ref={dotRef} />
       <canvas id="glowAurora" className="aurora-canvas"></canvas>
       <div className="desktop-nav">
