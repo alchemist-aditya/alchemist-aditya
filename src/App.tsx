@@ -54,7 +54,7 @@ const RippleButton = ({
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   style?: React.CSSProperties;
-}) {
+}) => {
   const btnRef = useRef(null);
 
   const doRipple = (e) => {
