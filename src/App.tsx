@@ -35,6 +35,13 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
+const RippleButton: React.FC<RippleButtonProps> = ({
+  children,
+  onClick,
+  style,
+}) => {
+  const btnRef = useRef<HTMLButtonElement>(null);
+
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
