@@ -105,7 +105,7 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 
- useEffect(() => {
+useEffect(() => {
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -122,8 +122,7 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   let mouseX = 0, mouseY = 0;
   let dotX = 0, dotY = 0;
 
-  // ✅ FIX IS HERE
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = (e: globalThis.MouseEvent) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
   };
