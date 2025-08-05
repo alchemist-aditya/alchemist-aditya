@@ -51,8 +51,7 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   }
 };
 
-
- useEffect(() => {
+  useEffect(() => {
     // Initialize Lenis scroll
     const lenis = new Lenis({
       duration: 1.2,
@@ -89,13 +88,12 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 
     animate();
     window.addEventListener("mousemove", handleMouseMove);
-    
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       lenis.destroy();
     };
   }, []);
-
 
   // ✅ Tilt interaction for .about-me panel
   useEffect(() => {
