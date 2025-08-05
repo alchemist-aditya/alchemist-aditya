@@ -35,59 +35,6 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const bounceTap = {
-  tap: {
-    scale: 0.95,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10,
-    },
-  },
-};
-
-const RippleButton = ({
-  children,
-  onClick,
-  style,
-}: {
-  children: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  style?: React.CSSProperties;
-}) => {
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = btnRef.current;
-    if (!btn) return;
-    const circle = document.createElement("span");
-    circle.className = "ripple";
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    circle.style.left = `${x}px`;
-    circle.style.top = `${y}px`;
-    btn.appendChild(circle);
-    setTimeout(() => circle.remove(), 700);
-  };
-
-  return (
-    <motion.button
- ref={btnRef}
-  className="glass-button"
-  whileTap="tap"
-  variants={bounceTap as any}
-      onClick={(e) => {
-        doRipple(e);
-        onClick && onClick(e);
-      }}
-      style={style}
-    >
-      {children}
-    </motion.button>
-  );
-};
-
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
@@ -105,45 +52,49 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 
-useEffect(() => {
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-  });
+ useEffect(() => {
+    // Initialize Lenis scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
 
-  const raf = (time: number) => {
-    lenis.raf(time);
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
     requestAnimationFrame(raf);
-  };
 
-  requestAnimationFrame(raf);
+    // Custom cursor animation
+    let mouseX = 0,
+      mouseY = 0;
+    let dotX = 0,
+      dotY = 0;
 
-  let mouseX = 0, mouseY = 0;
-  let dotX = 0, dotY = 0;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
 
-  const handleMouseMove = (e: globalThis.MouseEvent) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  };
+    const animate = () => {
+      dotX += (mouseX - dotX) * 0.28;
+      dotY += (mouseY - dotY) * 0.28;
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+      }
+      requestAnimationFrame(animate);
+    };
 
-  const animate = () => {
-    dotX += (mouseX - dotX) * 0.28;
-    dotY += (mouseY - dotY) * 0.28;
-    if (dotRef.current) {
-      dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-    }
-    requestAnimationFrame(animate);
-  };
-
-  animate();
-  window.addEventListener("mousemove", handleMouseMove);
-
-  return () => {
-    window.removeEventListener("mousemove", handleMouseMove);
-    lenis.destroy();
-  };
-}, []);
+    animate();
+    window.addEventListener("mousemove", handleMouseMove);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      lenis.destroy();
+    };
+  }, []);
 
 
   // ✅ Tilt interaction for .about-me panel
