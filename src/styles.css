@@ -55,35 +55,51 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.cursor-ripple {
-  position: fixed;
-  pointer-events: none;
-  width: 38px;
-  height: 38px;
+.glass-button {
+  position: relative;
+  overflow: hidden;
+  /* Other style as needed, eg: */
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  color: #222;
+  padding: 0.75em 2em;
+  font-weight: 600;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: box-shadow 0.22s;
+  box-shadow: 0 2px 12px 0 rgba(160, 120, 250, 0.04);
+}
+
+.glass-button:active {
+  box-shadow: 0 2px 4px 0 rgba(160, 120, 250, 0.13);
+}
+
+/* Ripple effect (the circle added on click) */
+.ripple {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  background: rgba(192, 132, 252, 0.18);
   border-radius: 50%;
-  background: rgba(192, 132, 252, 0.14);
-  border: 2px solid #c084fc6d;
-  z-index: 10000;
-  opacity: 1;
-  animation: cursorRippleAnim 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: rippleEffect 0.66s cubic-bezier(.43,.21,.42,1.01);
+  z-index: 2;
   left: 0;
   top: 0;
 }
-@keyframes cursorRippleAnim {
+
+@keyframes rippleEffect {
   from {
-    opacity: 0.48;
-    transform: scale(0.7);
-  }
-  90% {
-    opacity: 0.16;
+    opacity: 0.66;
+    transform: translate(-50%, -50%) scale(0.01);
   }
   to {
     opacity: 0;
-    transform: scale(1.5);
+    transform: translate(-50%, -50%) scale(2.5);
   }
 }
-
-
 /* === Main Container === */
 .app-container {
   max-width: 1200px;
