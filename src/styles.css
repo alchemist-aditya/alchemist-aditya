@@ -65,8 +65,8 @@ body {
 
 .page-ripple {
   position: absolute;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: rgba(192, 132, 252, 0.24);
   border: 2px solid #c084fc6d;
