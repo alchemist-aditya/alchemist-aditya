@@ -41,6 +41,7 @@ const RippleButton: React.FC<RippleButtonProps> = ({
   style,
 }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
+
   const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = btnRef.current;
     if (!btn) return;
@@ -55,6 +56,23 @@ const RippleButton: React.FC<RippleButtonProps> = ({
     setTimeout(() => circle.remove(), 700);
   };
 
+  return (
+    <motion.button
+      ref={btnRef}
+      className="glass-button"
+      whileTap="tap"
+      variants={bounceTap}
+      onClick={(e) => {
+        doRipple(e);
+        onClick && onClick(e);
+      }}
+      style={style}
+      // do NOT spread ...props
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 
 const App = () => {
