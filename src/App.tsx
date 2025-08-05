@@ -35,6 +35,18 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
+const bounceTap = {
+  tap: {
+    scale: 0.95,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 10,
+    },
+  },
+};
+
+
 interface RippleButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
