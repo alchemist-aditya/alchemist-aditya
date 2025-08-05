@@ -41,6 +41,21 @@ const RippleButton: React.FC<RippleButtonProps> = ({
   style,
 }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
+  const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    const circle = document.createElement("span");
+    circle.className = "ripple";
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    circle.style.left = `${x}px`;
+    circle.style.top = `${y}px`;
+    btn.appendChild(circle);
+    setTimeout(() => circle.remove(), 700);
+  };
+
+
 
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
