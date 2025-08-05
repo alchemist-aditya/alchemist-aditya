@@ -34,65 +34,6 @@ const Section = ({ children }: { children: React.ReactNode }) => (
     {children}
   </motion.div>
 );
-
-// === Button Tap Animation ===
-const bounceTap = {
-  tap: {
-    scale: 0.95,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10,
-    },
-  },
-};
-
-// === Ripple Button ===
-const RippleButton = ({
-  children,
-  onClick,
-  style,
-}: {
-  children: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  style?: React.CSSProperties;
-}) => {
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const doRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = btnRef.current;
-    if (!btn) return;
-
-    const circle = document.createElement("span");
-    circle.className = "ripple";
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    circle.style.left = `${x}px`;
-    circle.style.top = `${y}px`;
-
-    btn.appendChild(circle);
-    setTimeout(() => circle.remove(), 700);
-  };
-
-  return (
-    <motion.button
-      ref={btnRef}
-      className="glass-button"
-      whileTap="tap"
-      variants={bounceTap as any}
-      onClick={(e) => {
-        doRipple(e);
-        if (onClick) onClick(e);
-      }}
-      style={style}
-    >
-      {children}
-    </motion.button>
-  );
-};
-
-
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
@@ -107,6 +48,32 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   } else {
     window.open("https://calendly.com/narayanaditya/1hour", "_blank");
   }
+};
+
+
+ useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const ripple = document.createElement("div");
+      ripple.className = "page-ripple";
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      ripplesRef.current!.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    };
+    window.addEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Place this container at the end of your JSX, NOT inside the button!
+  return (
+    <div>
+      {/* ...your components... */}
+      <div ref={ripplesRef} className="ripple-layer" />
+    </div>
+  );
 };
 
   useEffect(() => {
