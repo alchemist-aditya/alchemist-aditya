@@ -35,6 +35,13 @@ const Section = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
+interface RippleButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+}
+
+
 const RippleButton: React.FC<RippleButtonProps> = ({
   children,
   onClick,
