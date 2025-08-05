@@ -105,49 +105,47 @@ const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 
-  useEffect(() => {
-    // Initialize Lenis scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+ useEffect(() => {
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
+  const raf = (time: number) => {
+    lenis.raf(time);
     requestAnimationFrame(raf);
+  };
 
-    // Custom cursor animation
-    let mouseX = 0,
-      mouseY = 0;
-    let dotX = 0,
-      dotY = 0;
+  requestAnimationFrame(raf);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
+  let mouseX = 0, mouseY = 0;
+  let dotX = 0, dotY = 0;
 
-    const animate = () => {
-      dotX += (mouseX - dotX) * 0.28;
-      dotY += (mouseY - dotY) * 0.28;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-      }
-      requestAnimationFrame(animate);
-    };
+  // ✅ FIX IS HERE
+  const handleMouseMove = (e: MouseEvent) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  };
 
-    animate();
-    window.addEventListener("mousemove", handleMouseMove);
-    
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      lenis.destroy();
-    };
-  }, []);
+  const animate = () => {
+    dotX += (mouseX - dotX) * 0.28;
+    dotY += (mouseY - dotY) * 0.28;
+    if (dotRef.current) {
+      dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+    }
+    requestAnimationFrame(animate);
+  };
+
+  animate();
+  window.addEventListener("mousemove", handleMouseMove);
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    lenis.destroy();
+  };
+}, []);
+
 
   // ✅ Tilt interaction for .about-me panel
   useEffect(() => {
