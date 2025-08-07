@@ -33,7 +33,6 @@ body {
   height: auto;
   min-height: 100vh; /* ✅ This is critical */
   scrollbar-color: #d946ef #1e1b2e; 
-  scrollbar-width: thin;
 }
 
 /* === Fix for Lenis + Framer + LazyLoad === */
