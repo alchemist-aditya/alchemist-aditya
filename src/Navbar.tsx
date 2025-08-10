@@ -47,11 +47,12 @@ const Navbar = () => {
         className="primary-button shine-sweep"
         onClick={() => handleScroll("calendly-section")}
       >
-        Upgrade Your Video
+        💳 Stand Out
       </button>
     </motion.div>
   );
 };
 
 export default Navbar;
+
 
