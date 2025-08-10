@@ -353,6 +353,16 @@ body {
   z-index: 2;
 }
 
+.navbar-container {
+  backdrop-filter: blur(10px);
+  background: rgba(20, 10, 40, 0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease;
+}
+.navbar-container.scrolled {
+  background: rgba(20, 10, 40, 0.55);
+}
+
 .alchemy-core-wrapper {
   position: relative;
   width: 42px;
