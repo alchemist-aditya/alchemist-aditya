@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -10,6 +10,8 @@ import Navbar from "./Navbar";
 import CalendlySection from "./CalendlySection";
 import HeroSection from "./herosection";
 import WhatIDoSection from "./WhatIDoSection";
+import MobileStandoutButton from "./MobileStandoutButton";
+import FaqSection from "./FaqSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,21 +39,20 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 const App = () => {
   const dotRef = useRef<HTMLDivElement>(null);
 
-const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  const isDesktop = window.innerWidth >= 1024;
-  if (isDesktop) {
-    e.preventDefault();
-    const target = document.getElementById("calendly-section");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+  const handleBookClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isDesktop = window.innerWidth >= 1024;
+    if (isDesktop) {
+      e.preventDefault();
+      const target = document.getElementById("calendly-section");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.open("https://calendly.com/narayanaditya/1hour", "_blank");
     }
-  } else {
-    window.open("https://calendly.com/narayanaditya/1hour", "_blank");
-  }
-};
+  };
 
-
-const ripplesRef = useRef<HTMLDivElement>(null);
+  const ripplesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -294,13 +295,14 @@ const ripplesRef = useRef<HTMLDivElement>(null);
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
-      
-       <div ref={ripplesRef} className="ripple-layer" />
+      <div ref={ripplesRef} className="ripple-layer" />
       <div className="cursor-dot" ref={dotRef} />
       <canvas id="glowAurora" className="aurora-canvas"></canvas>
       <div className="desktop-nav">
         <Navbar />
       </div>
+
+      <MobileStandoutButton />
 
       <MobileNav />
 
@@ -438,42 +440,15 @@ const ripplesRef = useRef<HTMLDivElement>(null);
       </section>
 
       <section id="calendly-section">
-      <Section>
-        <CalendlySection />
-      </Section>
-        </section>
+        <Section>
+          <CalendlySection />
+        </Section>
+      </section>
 
       {/* FAQ SECTION */}
       <section id="faq-section">
         <Section>
-          <section className="faq">
-            <h2>Frequently Asked Questions</h2>
-            {[
-              "How fast will I receive my videos?",
-              "How do I request edits?",
-              "How does the process work?",
-              "What if I’m not satisfied?",
-              "Can you help build my content style or visual brand?",
-
-            ].map((q, i) => (
-              <details key={i} className="faq-item tilt-faq">
-                <summary>
-                  <span className="faq-icon">+</span> {q}
-                </summary>
-                <p>
-                  {
-                    [
-                      "Most edits are delivered within 2–3 business days. Urgent 24-hour turnarounds are available if planned ahead. I balance speed with storytelling, so your videos are sharp, not rushed.",
-                      " I keep feedback simple — you’ll get a private review link where you can comment directly on the video, or just send notes via email or WhatsApp. Whatever’s easiest for you.",
-                      "We start with a quick strategy call to align on tone, pace, and goals. You’ll then send your raw footage (Google Drive, Dropbox, or WeTransfer — whatever works), and I take it from there. Clean cuts, aligned style, fast delivery.",
-                      " I offer unlimited revisions, because the goal isn’t to “deliver a file” — it’s to deliver something you actually want to post. I’ll refine until it hits the mark, 100% guaranteed.",
-                      "Absolutely — many creators come to me before their content style is fully locked. I help shape the look, subtitle style, color palette, and motion rhythm based on your audience.",
-                    ][i]
-                  }
-                </p>
-              </details>
-            ))}
-          </section>
+          <FaqSection />
         </Section>
       </section>
       {/* FOOTER */}
@@ -488,14 +463,14 @@ const ripplesRef = useRef<HTMLDivElement>(null);
             Let’s bring your content to life.
           </h2>
 
-  <motion.button
-  className="primary-button shine-sweep"
-  whileHover={{ scale: 1.08 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={handleBookClick}
->
-  Book a Free Call
-</motion.button>
+          <motion.button
+            className="primary-button shine-sweep"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleBookClick}
+          >
+            Book a Free Call
+          </motion.button>
           <div className="compact-footer-grid">
             <div className="footer-item">
               <span className="footer-label">🔗 Connect</span>
