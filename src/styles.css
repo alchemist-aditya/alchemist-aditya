@@ -9,9 +9,26 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* Prevent accidental text selection */
+* {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  /* Allow scroll but remove overscroll glow/bounce */
+  overflow-y: auto;
+  overscroll-behavior-y: none;
 }
 
 /* === Global Reset === */
@@ -32,7 +49,7 @@ body {
   overflow-x: hidden;
   height: auto;
   min-height: 100vh; /* ✅ This is critical */
-  scrollbar-color: #d946ef #1e1b2e; 
+  scrollbar-color: #d946ef #1e1b2e;
 }
 
 /* === Fix for Lenis + Framer + LazyLoad === */
@@ -74,7 +91,7 @@ body {
   pointer-events: none;
   transform: translate(-50%, -50%) scale(0.7);
   opacity: 1;
-  animation: pageRippleAnim 0.5s cubic-bezier(.22,1,.36,1) both;
+  animation: pageRippleAnim 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes pageRippleAnim {
   from {
@@ -109,17 +126,60 @@ body {
 }
 
 /* === Mobile Nav Icon === */
+
+:root {
+  --mobile-navbar-h: 60px;
+}
+
+/* === Mobile Nav Icon === */
 @media (max-width: 1023px) {
-  /* === Hamburger Icon === */
-  .mobile-nav-icon {
+  /* Fixed, full-width top bar */
+  .mobile-navbar {
+    position: fixed;
+    top: env(safe-area-inset-top, 0);
+    left: 0;
+    width: 100%;
+    height: var(--mobile-navbar-h);
+    background: rgba(10, 8, 18, 0.85); /* transparent */
+    backdrop-filter: saturate(150%) blur(8px);
+    -webkit-backdrop-filter: saturate(150%) blur(8px);
+    display: flex;
+    align-items: center; /* vertical center of items */
+    justify-content: space-between; /* left: logo, right: hamburger */
+    padding: 0 clamp(12px, 4vw, 20px);
+    z-index: 10000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Alchemy Core Wrapper slightly lower */
+  .mobile-navbar .alchemy-core-wrapper {
+    margin-top: 4px;
+    transform: translateY(1px);
+  }
+
+  /* Hamburger icon container (right side) */
+  .mobile-navbar .mobile-nav-icon {
+    position: relative;
+    width: 36px;
+    height: 28px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 6px;
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    z-index: 1001;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The 3 bars */
+  .mobile-navbar .mobile-nav-icon .bar {
+    width: 36px; /* top & bottom */
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+    transform-origin: center;
   }
 
   .bar {
@@ -132,7 +192,7 @@ body {
   }
 
   .bar.open:nth-child(1) {
-    transform: rotate(45deg) translate(6.3px, 6.3px);
+    transform: rotate(45deg) translate(6px, 6px);
   }
 
   .bar.open:nth-child(2) {
@@ -140,30 +200,28 @@ body {
   }
 
   .bar.open:nth-child(3) {
-    transform: rotate(-45deg) translate(6.3px, -6.3px);
+    transform: rotate(-45deg) translate(6px, -6px);
   }
 
-  /* === Horizontal Flip Style Mobile Menu (Top Half Only) === */
+  /* Slide-down mobile menu */
   .mobile-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     position: fixed;
-    top: 0;
+    top: calc(var(--mobile-navbar-h) + env(safe-area-inset-top, 0));
     left: 0;
-    height: 50vh; /* Half screen height */
+    right: 0;
+    height: 50vh;
     width: 100vw;
     padding: 48px 32px 24px 32px;
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.78),
-      rgba(180, 138, 255, 0.08)
-    );
+    background: rgba(10, 8, 18, 0.7);
     backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 9999;
+    overflow: auto;
   }
 
   .mobile-menu ul {
@@ -192,10 +250,12 @@ body {
     transform: scale(1.08);
   }
 
+  /* Book a Call Button */
   .mobile-menu .primary-button {
-    align-self: center;
+    align-self: center; /* center inside menu */
+    text-align: center; /* center text */
     font-size: 16px;
-    padding: 14px 24px;
+    padding: 16px 24px;
     margin-top: auto;
     margin-bottom: 8px;
   }
@@ -204,8 +264,14 @@ body {
   .nav-items {
     display: none;
   }
+
+  /* Prevent content hiding under navbar */
+  .with-mobile-navbar {
+    padding-top: calc(var(--mobile-navbar-h) + env(safe-area-inset-top, 0));
+  }
 }
 
+/* Primary Button Style */
 .primary-button {
   padding: 16px 32px;
   background: #ffffff10;
@@ -224,14 +290,14 @@ body {
   display: inline-block;
 }
 
-/* Shine animation */
+/* Shine Animation */
 .primary-button.shine-sweep::before {
   content: "";
   position: absolute;
   top: 0;
   left: -60%;
   height: 100%;
-  width: 80%;
+  width: 0%;
   background: linear-gradient(
     120deg,
     transparent,
@@ -252,10 +318,17 @@ body {
   box-shadow: 0 0 12px rgba(180, 138, 255, 0.6);
 }
 
-/* === Desktop Navbar Placeholder (optional) === */
+/* Hide mobile nav on desktop */
 @media (min-width: 1024px) {
   .mobile-nav-icon,
   .mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Hide Alchemy Core Wrapper on desktop */
+@media (min-width: 1024px) {
+  .mobile-navbar .alchemy-core-wrapper {
     display: none !important;
   }
 }
@@ -315,7 +388,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 1px;
+  padding: 1.4px;
   border-radius: 16px;
   background: linear-gradient(
     120deg,
@@ -347,7 +420,7 @@ body {
   }
 }
 
-/* Ensure all children stay above the animated stroke */
+/* the new one Ensure all children stay above the animated stroke */
 .navbar-container * {
   position: relative;
   z-index: 2;
@@ -356,13 +429,11 @@ body {
 .navbar-container {
   backdrop-filter: blur(10px);
   background: rgba(20, 10, 40, 0.3);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.3s ease;
 }
+
 .navbar-container.scrolled {
   background: rgba(20, 10, 40, 0.55);
 }
-
 .alchemy-core-wrapper {
   position: relative;
   width: 42px;
@@ -542,7 +613,6 @@ body {
 .standout-pay-btn {
   text-decoration: none;
 }
-
 
 .million-glass {
   position: absolute;
@@ -992,20 +1062,318 @@ body {
   will-change: transform;
 }
 
-/* === Header Section === */
-header {
-  text-align: center;
-  padding-block: 80px 60px;
-  perspective: 800px; /* Enables 3D perspective */
+/* =========================================
+   Mobile Standout Button Full Animation CSS
+   ========================================= */
+:root {
+  --brand-purple: #7b4fff;
+  --msb-grad: linear-gradient(120deg, #7f61ff 0%, #c471f7 66%, #c85efd 100%);
 }
 
-header h1 {
-  font-size: 64px;
+/* -------- FAB Main Circular Button ------------ */
+.msb-fab-main {
+  background: var(--brand-purple, #7b4fff);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  font-size: 28px;
+  box-shadow: 0 2px 17px 0 rgba(123, 79, 255, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.19s, background 0.23s;
+  outline: none;
+  will-change: transform;
+  overflow: hidden;
+  position: relative;
+  animation: fabGlowPulse 3s ease-in-out infinite;
+}
+
+.msb-fab-main:active,
+.msb-fab-main:focus {
+  box-shadow: 0 2px 11px 0 rgba(123, 79, 255, 0.14);
+  background: #9167ff;
+}
+
+/* FAB Main FAB Animation (vibrate + pulse + glow + stagger) */
+.msb-fab-main.animate {
+  animation: msb-fab-vibrate 0.6s ease-in-out alternate,
+    msb-fab-pulse 4s ease-in-out 0.2s infinite alternate,
+    fabGlowPulse 3s ease-in-out infinite;
+}
+
+/* Vibrate rotation */
+@keyframes msb-fab-vibrate {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(18deg);
+  }
+  20% {
+    transform: rotate(-18deg);
+  }
+  30% {
+    transform: rotate(12deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-10deg);
+  }
+  70% {
+    transform: rotate(18deg);
+  }
+  80% {
+    transform: rotate(-18deg);
+  }
+  90% {
+    transform: rotate(12deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Pulse / scale */
+@keyframes msb-fab-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 17px rgba(123, 79, 255, 0.24);
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow: 0 0 28px rgba(123, 79, 255, 0.5);
+  }
+}
+
+/* Glow pulse synced with shine */
+@keyframes fabGlowPulse {
+  0%,
+  90%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 0, 195, 0.3),
+      0 0 10px rgba(192, 132, 252, 0.2);
+  }
+  15%,
+  20% {
+    box-shadow: 0 0 12px rgba(182, 73, 240, 0.85),
+      0 0 36px rgba(192, 132, 252, 0.6), 0 0 48px rgba(192, 132, 252, 0.4);
+  }
+}
+
+/* Thin shine sweep bar */
+.msb-fab-main::before {
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: -120%;
+  width: 300%;
+  height: 50px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.54),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shineSweepThin 3s ease-in-out infinite;
+}
+
+/* Shine sweep animation */
+@keyframes shineSweepThin {
+  0% {
+    top: 120%;
+    left: -120%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    top: -120%;
+    left: 120%;
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    top: -120%;
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+/* --------- FAB pill CTA ------------ */
+.msb-fab-cta {
+  padding: 0.8em 1.6em;
+  background: var(--msb-grad);
+  color: #fff !important;
+  border-radius: 999px;
+  box-shadow: 0 2px 11px 0 rgba(123, 79, 255, 0.19);
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 24px;
-  max-width: 800px;
-  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-decoration: none !important;
+  transition: background 0.35s, box-shadow 0.24s, transform 0.18s !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.msb-fab-cta:hover,
+.msb-fab-cta:focus {
+  background: linear-gradient(98deg, #ad97fa 0%, #e7a3ff 65%, #b177fb 100%);
+  box-shadow: 0 4px 22px 0 #a678fa49;
+  transform: scale(1.04);
+}
+
+/* CTA shine sweep */
+.msb-fab-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.54) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  animation: msb-fab-cta-swipe 3s linear infinite;
+}
+
+@keyframes msb-fab-cta-swipe {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  50% {
+    left: 100%;
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Add shine when CTA animate class is added */
+.msb-fab-cta.animate::after {
+  animation: msb-fab-shine-sweep 1s cubic-bezier(0.93, 0.08, 0.66, 1.06) 1;
+}
+
+@keyframes msb-fab-shine-sweep {
+  0% {
+    left: -75%;
+    top: -45%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 230%;
+    top: 170%;
+    opacity: 0;
+  }
+}
+
+/* --------- Info Button ----------- */
+.msb-info-btn {
+  background: #28214b;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  font-size: 17px;
+  box-shadow: 0 2px 9px rgba(90, 50, 180, 0.11);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 7px;
+  transition: box-shadow 0.16s;
+}
+
+.msb-info-btn:active,
+.msb-info-btn:focus {
+  color: #ffe3fc;
+  background: #7b4fff;
+}
+
+/* Tooltip */
+.msb-fab-tooltip {
+  background: #28214b;
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 24px 1px rgba(44, 34, 78, 0.13);
+  font-size: 15px;
+  padding: 13px 17px 13px 14px;
+  font-weight: 500;
+  position: absolute;
+  z-index: 20001;
+  right: 0;
+  min-width: 210px;
+  max-width: 260px;
+}
+
+/* Tooltip strong */
+.msb-fab-tooltip strong {
+  color: #dabdff;
+}
+
+/* Responsive tooltip for very small screens */
+@media (max-width: 360px) {
+  .msb-fab-tooltip {
+    min-width: 160px;
+    max-width: 200px;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+/* --------- Utility/Container --------- */
+.msb-fab-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Hide FAB on desktop */
+@media (min-width: 1025px) {
+  .msb-fab-container {
+    display: none !important;
+  }
 }
 
 /* === Header Section === */
@@ -1013,6 +1381,12 @@ header {
   text-align: center;
   padding-block: 80px 60px;
   perspective: 800px; /* Enables 3D perspective */
+}
+
+@media (max-width: 1023px) {
+  header {
+    padding-block: 55px 35px; /* smaller gap only for mobile/tablet */
+  }
 }
 
 header h1 {
@@ -1081,6 +1455,39 @@ header h1 {
   transition: color 0.2s ease-out, transform 0.1s ease-out;
   will-change: transform;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  /* If you want to also animate any platform names inside subheadline, target them similarly by their class (for example, .hover-highlight if used): */
+  .subheadline .hover-highlight {
+    background: linear-gradient(
+      91deg,
+      #c084fc 20%,
+      #8f4afc 45%,
+      #ea80fc 75%,
+      #f472b6 95%,
+      #c084fc 100%
+    );
+    background-size: 250% 250%;
+    color: transparent !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    animation: platformMobileAnim 2.2s linear infinite;
+    font-weight: 600 !important;
+    filter: brightness(1.14) drop-shadow(0 0 10px #c084fc55);
+    display: inline !important;
+  }
+
+  @keyframes platformMobileAnim {
+    0% {
+      background-position: 100% 60%;
+      filter: brightness(1.02) drop-shadow(0 0 4px #ea80fc33);
+    }
+    100% {
+      background-position: 0% 10%;
+      filter: brightness(1.15) drop-shadow(0 0 12px #c084fc66);
+    }
+  }
 }
 
 /* === Main Subheadline === */
@@ -1195,6 +1602,28 @@ header h1 {
 .primary-button.shine-sweep:hover::before {
   left: 130%;
   transition: left 1s ease-in-out;
+}
+
+.primary-button {
+  background: rgba(162, 66, 255, 0.16); /* a slightly more purple background */
+  color: #fff;
+  border: 1.5px solid #c084fc; /* your accent purple */
+  box-shadow: 0 6px 24px rgba(192, 132, 252, 0.16),
+    0 2px 8px rgba(0, 0, 0, 0.09);
+  /* rest of your styles */
+}
+
+.primary-button.shine-sweep::before {
+  /* Shine stays the same, or could be made more visible with stronger white */
+}
+
+@media (max-width: 600px) {
+  .primary-button {
+    background: rgba(162, 66, 255, 0.26); /* Medium purple, a bit more opaque */
+    border: 2px solid #c084fc; /* More visible border */
+    box-shadow: 0 6px 24px rgba(192, 132, 252, 0.32),
+      0 2px 8px rgba(0, 0, 0, 0.16);
+  }
 }
 
 /* === Section === */
@@ -1455,27 +1884,7 @@ section p {
   }
 }
 
-/* === Video Panel === */
-.video-panel {
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0)
-  );
-  border-radius: 24px;
-  padding: 40px;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 20px;
-}
-
+/* =================== DESKTOP/LAPTOP =================== */
 .video-panel {
   background: linear-gradient(
     120deg,
@@ -1501,7 +1910,7 @@ section p {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.49, 1.68, 0.62, 1.03);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
@@ -1523,7 +1932,6 @@ section p {
 }
 
 /* YouTube logo behavior */
-/* Base (Desktop) */
 .youtube-logo {
   position: absolute;
   inset: 0;
@@ -1534,39 +1942,332 @@ section p {
   transition: filter 0.3s ease, transform 0.3s ease;
   z-index: 2;
 }
-
-/* Hover effect (optional, can be edited per screen if needed) */
 .youtube-logo:hover {
   filter: grayscale(0);
   transform: scale(1.1);
 }
-
-/* Tablet: 768px and below */
 @media (max-width: 768px) {
   .youtube-logo {
     width: 72px;
     height: 72px;
   }
 }
-
-/* Mobile: 480px and below */
 @media (max-width: 480px) {
   .youtube-logo {
-    width: 48px;
-    height: 48px;
+    width: 68px;
+    height: 68px;
   }
 }
-
 .video-item:hover .youtube-logo {
   filter: grayscale(0) drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
 }
-
 .thumbnail-image {
   width: 100%;
   height: auto;
   aspect-ratio: 9 / 16;
-  object-fit: cover; /* You can try "contain" if "cover" looks bad */
-  border-radius: 0.75rem; /* rounded-xl */
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* ================= MOBILE/TABLET CAROUSEL ================= */
+@media (max-width: 1024px) {
+  .video-panel,
+  .video-grid {
+    display: none !important;
+  }
+
+  .video-carousel-container {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* keep controls positioned correctly */
+    
+    /* full-bleed trick */
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0)
+    );
+    padding: 0 0 20px 0;
+    border-radius: 0 0 24px 24px;
+    box-shadow: none;
+  }
+}
+
+  /* ==== Depth layers for mobile/tablet carousel ==== */
+  @media (max-width: 1024px) {
+    .netflix-carousel-track {
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Center card — strong depth + premium glow */
+    .netflix-carousel-slide.is-center {
+      box-shadow: 0 8px 34px rgba(190, 162, 255, 0.16),
+        0 0 0 3px rgba(255, 38, 38, 0.06);
+      border-color: #c7b2ff;
+      transform-origin: center;
+    }
+
+    /* Smooth transitions */
+    .netflix-carousel-slide {
+      transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 0.28s ease, border-color 0.28s ease, opacity 0.2s ease;
+    }
+
+    /* Active center YouTube logo — tint + subtle parallax */
+    .youtube-logo.center-active {
+      filter: saturate(1.5) drop-shadow(0 2px 8px rgba(255, 40, 40, 0.501));
+      transform: translateY(-4px) scale(1.05);
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    /* Side logos — slightly dimmed */
+    .netflix-carousel-slide:not(.is-center) .youtube-logo {
+      transform: translateY(0) scale(1);
+      opacity: 0.85;
+    }
+  }
+
+  /* ==== Base shadows for all devices ==== */
+  .netflix-carousel-slide {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Parallax effect on YouTube logo for active slide */
+  .netflix-carousel-slide.is-active .youtube-logo {
+    transform: translateY(-4px) scale(1.05);
+    transition: transform 0.35s ease;
+  }
+
+  /* Keep logo static for non-active slides */
+  .netflix-carousel-slide:not(.is-active) .youtube-logo {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+/* Hide scrollbar cross-browser */
+.carousel-track,
+.netflix-carousel-track {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7rem; /* consistent spacing between videos */
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 28px 0 28px 0.8rem; /* <-- left padding buffer */
+  outline: none;
+  background: transparent;
+  min-height: 265px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel-track::-webkit-scrollbar,
+.netflix-carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera/Edge */
+}
+
+/* Add a right buffer for the last video */
+.carousel-track::after,
+.netflix-carousel-track::after {
+  content: "";
+  flex: 0 0 0.5rem; /* <-- right side gap */
+}
+
+  /* Carousel slide: Make video much smaller, show much more edge! */
+  .carousel-slide,
+  .netflix-carousel-slide {
+    flex: 0 0 58vw; /* <- DOWN from 72vw, now shows more edge peeks */
+    max-width: 320px;
+    min-width: 130px;
+    aspect-ratio: 9/16;
+    scroll-snap-align: center;
+    transition: box-shadow 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93),
+      border-color 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93);
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+    border: 2.2px solid rgba(255, 255, 255, 0.08);
+    background: #191528;
+    box-shadow: 0 2.5px 22px #a48cff18, 0 0.8px 3px #4b193864;
+    will-change: border-color, box-shadow;
+  }
+  
+  /* Tweak at smallest width for more edge peek */
+  @media (max-width: 600px) {
+    .carousel-slide,
+    .netflix-carousel-slide {
+      flex-basis: 72vw;
+      min-width: 120px;
+      max-width: 210px;
+    }
+  }
+  @media (min-width: 540px) and (max-width: 900px) {
+    .carousel-slide,
+    .netflix-carousel-slide {
+      flex-basis: 36vw;
+      min-width: 120px;
+      max-width: 220px;
+    }
+  }
+  /* Active/focus slide border highlight */
+  .carousel-slide.is-active,
+  .netflix-carousel-slide.is-active,
+  .carousel-slide:focus-within {
+    border-color: #ae81ff;
+    box-shadow: 0 6px 32px #bea2ff2b, 0 1.2px 8px #9583d16a,
+      0 0px 0px 2.5px #bb88ff28;
+    animation: borderstroke-move 1.2s cubic-bezier(0.4, 1.5, 0.4, 0.91);
+    z-index: 3;
+  }
+  @keyframes borderstroke-move {
+    0% {
+      border-color: #e386ff;
+    }
+    35% {
+      border-color: #ae81ff;
+    }
+    55% {
+      border-color: #bcaaee;
+    }
+    80% {
+      border-color: #7b44bb;
+    }
+    100% {
+      border-color: #ae81ff;
+    }
+  }
+
+  .carousel-slide:focus-within,
+  .carousel-slide:focus {
+    outline: none;
+    box-shadow: 0 2px 14px #d1bbfa44, 0 0px 0 2.5px #dfbeffcc;
+    border-color: #ad92ff;
+  }
+  .carousel-slide:hover,
+  .netflix-carousel-slide:hover {
+    border-color: #d1bbff;
+    box-shadow: 0 5px 26px #ceb6fe50, 0 1.2px 6px #a188ffe0;
+    transition: box-shadow 0.24s, border-color 0.26s;
+  }
+  /* Remove scale on active, NO zoom animation */
+  .carousel-slide.is-active,
+  .carousel-slide,
+  .netflix-carousel-slide.is-active,
+  .netflix-carousel-slide {
+    transform: none !important;
+  }
+  /* Inner video card (no zoom, subtle shadow) */
+  .netflix-carousel-card,
+  .carousel-slide .video-item,
+  .netflix-carousel-slide .video-item {
+    box-shadow: 0 1.4px 12px #53399619, 0 0px 3px #9a7ecf13;
+    border-radius: 13px;
+    background: #16101e;
+    transition: box-shadow 0.2s;
+    filter: none;
+  }
+  .carousel-slide .video-item:active,
+  .carousel-slide .video-item:focus-within,
+  .carousel-slide .video-item:hover {
+    box-shadow: 0 2px 14px #8c6ac031, 0 1.3px 9px #cbbdfc29;
+  }
+  /* ============ Carousel Controls ============== */
+  .carousel-controls,
+  .netflix-carousel-controls {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* === VERTICALLY CENTER THE CONTROLS === */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    user-select: none;
+    height: 0;
+    padding: 0;
+    /* removes the up position and puts them at the center of the section */
+  }
+  .carousel-arrow {
+    pointer-events: auto;
+    background: #221642;
+    border: 0;
+    border-radius: 40px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.95;
+    cursor: pointer;
+    transition: box-shadow 0.25s cubic-bezier(0.5, 1.2, 0.5, 1),
+      border 0.18s cubic-bezier(0.5, 1.2, 0.5, 1),
+      background 0.22s cubic-bezier(0.5, 1.4, 0.7, 1.1);
+    font-size: 26px;
+    outline: none;
+    box-shadow: 0 2px 12px #a494cc18;
+    border: 2.5px solid rgba(221, 214, 255, 0.04);
+    position: relative;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+  .carousel-arrow:focus,
+  .carousel-arrow:hover {
+    box-shadow: 0 0 0 4px #c7aeff33, 0 2px 13px #a98cff21;
+    border-color: #b489ff;
+    background: #362568;
+  }
+  .carousel-arrow:active {
+    border-color: #ae31ef;
+    background: #59338a;
+  }
+  .carousel-arrow:disabled {
+    opacity: 0.28;
+    pointer-events: none;
+  }
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem; /* space between slides */
+  padding-inline: 1rem; /* makes the first video fully visible */
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+/* VIDEO TITLE - Subtle animated text effect for extra "worth" */
+.video-section-title {
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: #eee;
+  background: linear-gradient(92deg, #fff 67%, #bc7aff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 18px #b198e933);
+  font-family: var(--font-sans, "Inter", "Sora", "Roboto", "Arial", sans-serif);
+  text-shadow: 0 4px 18px #9739c71a, 0 0.7px 2px #e3e0ee57;
+  animation: title-shimmer 2.7s cubic-bezier(0.18, 0.91, 0.5, 0.97) infinite;
+}
+@keyframes title-shimmer {
+  0% {
+    filter: drop-shadow(0 2px 16px #baa4fa30);
+  }
+  68% {
+    filter: drop-shadow(0 2px 16px #d2b7f853);
+  }
+  100% {
+    filter: drop-shadow(0 2px 16px #baa4fa30);
+  }
 }
 
 /* === Why Work With Me Glass Panels === */
@@ -1648,6 +2349,14 @@ section p {
   100% {
     transform: scale(1);
   }
+}
+
+
+/* === Luxury Shadow & Depth for Active Panels === */
+.glass-panel.gradient.tilt-card:hover {
+  box-shadow: 0 10px 25px rgba(200, 83, 255, 0.15),
+    0 0 35px rgba(181, 106, 255, 0.08);
+  transform: rotateX(2deg) rotateY(-2deg) scale(1.008);
 }
 
 /* === About Me Panel (Enhanced) === */
@@ -1887,11 +2596,11 @@ section p {
 
 .faq-item[open] .faq-icon {
   transform: rotate(45deg);
-  transition: transform 0.3s cubic-bezier(.66,1.47,.62,.89);
+  transition: transform 0.3s cubic-bezier(0.66, 1.47, 0.62, 0.89);
 }
 .faq-icon {
   display: inline-block;
-  transition: transform 0.3s cubic-bezier(.66,1.47,.62,.89);
+  transition: transform 0.3s cubic-bezier(0.66, 1.47, 0.62, 0.89);
 }
 
 @keyframes fadeInUp {
@@ -1999,6 +2708,12 @@ section p {
 
 .compact-link:hover::after {
   transform: translateX(-50%) scaleX(1);
+}
+
+.compact-link:hover {
+  background: linear-gradient(90deg, #8b5cf6, #ff08ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .footer-copy {
