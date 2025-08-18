@@ -18,10 +18,20 @@
       rel="stylesheet"
     />
 
- <!-- Favicon setup -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🧠</text></svg>"></link>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
 
-    <title>Visual Alchemist</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Shadows+Into+Light&family=Kalam&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <title>React App</title>
+
     <!-- ✅ Prevent white flash & match exact gradient -->
     <style>
       html,
@@ -40,6 +50,54 @@
         height: 100%;
       }
     </style>
+
+    <!-- ✅ JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://alchaditya.com/#person",
+            "name": "Aditya Pandey",
+            "alternateName": "ALCHADITYA",
+            "url": "https://alchaditya.com",
+            "sameAs": [
+              "https://www.instagram.com/alchaditya",
+              "https://www.linkedin.com/in/alchemist-aditya"
+            ],
+            "description": "More than a video editor, I design solutions that make content creation faster and smarter. From edits that hook viewers in the first 3 seconds to custom tools in After Effects that cut hours of repetitive work. One of my favorites is a custom script UI panel in After Effects that automates proximity-based animation, freeing up time for creative choices and storytelling instead of repetitive keyframes.",
+            "jobTitle": "Video Editor & Motion Graphics Designer",
+            "knowsAbout": [
+              "Video Editing",
+              "Motion Graphics",
+              "After Effects",
+              "Custom Tools",
+              "Proximity UI Animation",
+              "Content Creation Workflows"
+            ],
+            "brand": {
+              "@id": "https://alchaditya.com/#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://alchaditya.com/#organization",
+            "name": "Visual Alchemist",
+            "url": "https://alchaditya.com",
+            "description": "Visual Alchemist is the creative brand and portfolio of Aditya Pandey (ALCHADITYA), showcasing video editing, motion graphics, and custom After Effects tools that make content creation smarter and faster.",
+            "slogan": "Giving creators the freedom to make without the wait.",
+            "sameAs": [
+              "https://www.instagram.com/alchaditya",
+              "https://www.linkedin.com/in/alchemist-aditya"
+            ],
+            "founder": {
+              "@id": "https://alchaditya.com/#person"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
