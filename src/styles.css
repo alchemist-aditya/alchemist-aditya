@@ -1980,7 +1980,7 @@ section p {
     display: flex;
     flex-direction: column;
     position: relative; /* keep controls positioned correctly */
-    
+
     /* full-bleed trick */
     width: 100vw;
     max-width: 100vw;
@@ -1998,57 +1998,57 @@ section p {
   }
 }
 
-  /* ==== Depth layers for mobile/tablet carousel ==== */
-  @media (max-width: 1024px) {
-    .netflix-carousel-track {
-      overscroll-behavior-x: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* Center card — strong depth + premium glow */
-    .netflix-carousel-slide.is-center {
-      box-shadow: 0 8px 34px rgba(190, 162, 255, 0.16),
-        0 0 0 3px rgba(255, 38, 38, 0.06);
-      border-color: #c7b2ff;
-      transform-origin: center;
-    }
-
-    /* Smooth transitions */
-    .netflix-carousel-slide {
-      transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
-        box-shadow 0.28s ease, border-color 0.28s ease, opacity 0.2s ease;
-    }
-
-    /* Active center YouTube logo — tint + subtle parallax */
-    .youtube-logo.center-active {
-      filter: saturate(1.5) drop-shadow(0 2px 8px rgba(255, 40, 40, 0.501));
-      transform: translateY(-4px) scale(1.05);
-      transition: transform 0.28s ease, filter 0.28s ease;
-    }
-
-    /* Side logos — slightly dimmed */
-    .netflix-carousel-slide:not(.is-center) .youtube-logo {
-      transform: translateY(0) scale(1);
-      opacity: 0.85;
-    }
+/* ==== Depth layers for mobile/tablet carousel ==== */
+@media (max-width: 1024px) {
+  .netflix-carousel-track {
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* ==== Base shadows for all devices ==== */
+  /* Center card — strong depth + premium glow */
+  .netflix-carousel-slide.is-center {
+    box-shadow: 0 8px 34px rgba(190, 162, 255, 0.16),
+      0 0 0 3px rgba(255, 38, 38, 0.06);
+    border-color: #c7b2ff;
+    transform-origin: center;
+  }
+
+  /* Smooth transitions */
   .netflix-carousel-slide {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
+      box-shadow 0.28s ease, border-color 0.28s ease, opacity 0.2s ease;
   }
 
-  /* Parallax effect on YouTube logo for active slide */
-  .netflix-carousel-slide.is-active .youtube-logo {
+  /* Active center YouTube logo — tint + subtle parallax */
+  .youtube-logo.center-active {
+    filter: saturate(1.5) drop-shadow(0 2px 8px rgba(255, 40, 40, 0.501));
     transform: translateY(-4px) scale(1.05);
-    transition: transform 0.35s ease;
+    transition: transform 0.28s ease, filter 0.28s ease;
   }
 
-  /* Keep logo static for non-active slides */
-  .netflix-carousel-slide:not(.is-active) .youtube-logo {
+  /* Side logos — slightly dimmed */
+  .netflix-carousel-slide:not(.is-center) .youtube-logo {
     transform: translateY(0) scale(1);
-    opacity: 1;
+    opacity: 0.85;
   }
+}
+
+/* ==== Base shadows for all devices ==== */
+.netflix-carousel-slide {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Parallax effect on YouTube logo for active slide */
+.netflix-carousel-slide.is-active .youtube-logo {
+  transform: translateY(-4px) scale(1.05);
+  transition: transform 0.35s ease;
+}
+
+/* Keep logo static for non-active slides */
+.netflix-carousel-slide:not(.is-active) .youtube-logo {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
 
 /* Hide scrollbar cross-browser */
 .carousel-track,
@@ -2080,160 +2080,204 @@ section p {
   flex: 0 0 0.5rem; /* <-- right side gap */
 }
 
-  /* Carousel slide: Make video much smaller, show much more edge! */
-  .carousel-slide,
-  .netflix-carousel-slide {
-    flex: 0 0 58vw; /* <- DOWN from 72vw, now shows more edge peeks */
-    max-width: 320px;
-    min-width: 130px;
-    aspect-ratio: 9/16;
-    scroll-snap-align: center;
-    transition: box-shadow 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93),
-      border-color 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93);
-    border-radius: 16px;
-    position: relative;
-    z-index: 1;
-    border: 2.2px solid rgba(255, 255, 255, 0.08);
-    background: #191528;
-    box-shadow: 0 2.5px 22px #a48cff18, 0 0.8px 3px #4b193864;
-    will-change: border-color, box-shadow;
-  }
-  
-  /* Tweak at smallest width for more edge peek */
-  @media (max-width: 600px) {
-    .carousel-slide,
-    .netflix-carousel-slide {
-      flex-basis: 72vw;
-      min-width: 120px;
-      max-width: 210px;
-    }
-  }
-  @media (min-width: 540px) and (max-width: 900px) {
-    .carousel-slide,
-    .netflix-carousel-slide {
-      flex-basis: 36vw;
-      min-width: 120px;
-      max-width: 220px;
-    }
-  }
-  /* Active/focus slide border highlight */
-  .carousel-slide.is-active,
-  .netflix-carousel-slide.is-active,
-  .carousel-slide:focus-within {
-    border-color: #ae81ff;
-    box-shadow: 0 6px 32px #bea2ff2b, 0 1.2px 8px #9583d16a,
-      0 0px 0px 2.5px #bb88ff28;
-    animation: borderstroke-move 1.2s cubic-bezier(0.4, 1.5, 0.4, 0.91);
-    z-index: 3;
-  }
-  @keyframes borderstroke-move {
-    0% {
-      border-color: #e386ff;
-    }
-    35% {
-      border-color: #ae81ff;
-    }
-    55% {
-      border-color: #bcaaee;
-    }
-    80% {
-      border-color: #7b44bb;
-    }
-    100% {
-      border-color: #ae81ff;
-    }
-  }
+/* Carousel slide: Make video much smaller, show much more edge! */
+.carousel-slide,
+.netflix-carousel-slide {
+  flex: 0 0 58vw; /* <- DOWN from 72vw, now shows more edge peeks */
+  max-width: 320px;
+  min-width: 130px;
+  aspect-ratio: 9/16;
+  scroll-snap-align: center;
+  transition: box-shadow 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93),
+    border-color 0.33s cubic-bezier(0.3, 1.25, 0.52, 0.93);
+  border-radius: 16px;
+  position: relative;
+  z-index: 1;
+  border: 2.2px solid rgba(255, 255, 255, 0.08);
+  background: #191528;
+  box-shadow: 0 2.5px 22px #a48cff18, 0 0.8px 3px #4b193864;
+  will-change: border-color, box-shadow;
+}
 
-  .carousel-slide:focus-within,
-  .carousel-slide:focus {
-    outline: none;
-    box-shadow: 0 2px 14px #d1bbfa44, 0 0px 0 2.5px #dfbeffcc;
-    border-color: #ad92ff;
+.dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  position: relative;
+  animation: fadeInDots 0.6s ease forwards;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dot:hover {
+  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(164, 140, 255, 0.6);
+}
+
+.dot.active {
+  background: rgb(255, 0, 238);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(164, 140, 255, 0.9),
+    0 0 20px rgba(164, 140, 255, 0.6);
+}
+
+/* Animate dots container fade-in */
+@keyframes fadeInDots {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  .carousel-slide:hover,
-  .netflix-carousel-slide:hover {
-    border-color: #d1bbff;
-    box-shadow: 0 5px 26px #ceb6fe50, 0 1.2px 6px #a188ffe0;
-    transition: box-shadow 0.24s, border-color 0.26s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  /* Remove scale on active, NO zoom animation */
-  .carousel-slide.is-active,
+}
+
+/* Tweak at smallest width for more edge peek */
+@media (max-width: 600px) {
   .carousel-slide,
-  .netflix-carousel-slide.is-active,
   .netflix-carousel-slide {
-    transform: none !important;
+    flex-basis: 72vw;
+    min-width: 120px;
+    max-width: 210px;
   }
-  /* Inner video card (no zoom, subtle shadow) */
-  .netflix-carousel-card,
-  .carousel-slide .video-item,
-  .netflix-carousel-slide .video-item {
-    box-shadow: 0 1.4px 12px #53399619, 0 0px 3px #9a7ecf13;
-    border-radius: 13px;
-    background: #16101e;
-    transition: box-shadow 0.2s;
-    filter: none;
+}
+@media (min-width: 540px) and (max-width: 900px) {
+  .carousel-slide,
+  .netflix-carousel-slide {
+    flex-basis: 36vw;
+    min-width: 120px;
+    max-width: 220px;
   }
-  .carousel-slide .video-item:active,
-  .carousel-slide .video-item:focus-within,
-  .carousel-slide .video-item:hover {
-    box-shadow: 0 2px 14px #8c6ac031, 0 1.3px 9px #cbbdfc29;
+}
+/* Active/focus slide border highlight */
+.carousel-slide.is-active,
+.netflix-carousel-slide.is-active,
+.carousel-slide:focus-within {
+  border-color: #ae81ff;
+  box-shadow: 0 6px 32px #bea2ff2b, 0 1.2px 8px #9583d16a,
+    0 0px 0px 2.5px #bb88ff28;
+  animation: borderstroke-move 1.2s cubic-bezier(0.4, 1.5, 0.4, 0.91);
+  z-index: 3;
+}
+@keyframes borderstroke-move {
+  0% {
+    border-color: #e386ff;
   }
-  /* ============ Carousel Controls ============== */
-  .carousel-controls,
-  .netflix-carousel-controls {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    /* === VERTICALLY CENTER THE CONTROLS === */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 20;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    user-select: none;
-    height: 0;
-    padding: 0;
-    /* removes the up position and puts them at the center of the section */
+  35% {
+    border-color: #ae81ff;
   }
-  .carousel-arrow {
-    pointer-events: auto;
-    background: #221642;
-    border: 0;
-    border-radius: 40px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.95;
-    cursor: pointer;
-    transition: box-shadow 0.25s cubic-bezier(0.5, 1.2, 0.5, 1),
-      border 0.18s cubic-bezier(0.5, 1.2, 0.5, 1),
-      background 0.22s cubic-bezier(0.5, 1.4, 0.7, 1.1);
-    font-size: 26px;
-    outline: none;
-    box-shadow: 0 2px 12px #a494cc18;
-    border: 2.5px solid rgba(221, 214, 255, 0.04);
-    position: relative;
-    margin-left: 7px;
-    margin-right: 7px;
+  55% {
+    border-color: #bcaaee;
   }
-  .carousel-arrow:focus,
-  .carousel-arrow:hover {
-    box-shadow: 0 0 0 4px #c7aeff33, 0 2px 13px #a98cff21;
-    border-color: #b489ff;
-    background: #362568;
+  80% {
+    border-color: #7b44bb;
   }
-  .carousel-arrow:active {
-    border-color: #ae31ef;
-    background: #59338a;
+  100% {
+    border-color: #ae81ff;
   }
-  .carousel-arrow:disabled {
-    opacity: 0.28;
-    pointer-events: none;
-  }
+}
+
+.carousel-slide:focus-within,
+.carousel-slide:focus {
+  outline: none;
+  box-shadow: 0 2px 14px #d1bbfa44, 0 0px 0 2.5px #dfbeffcc;
+  border-color: #ad92ff;
+}
+.carousel-slide:hover,
+.netflix-carousel-slide:hover {
+  border-color: #d1bbff;
+  box-shadow: 0 5px 26px #ceb6fe50, 0 1.2px 6px #a188ffe0;
+  transition: box-shadow 0.24s, border-color 0.26s;
+}
+/* Remove scale on active, NO zoom animation */
+.carousel-slide.is-active,
+.carousel-slide,
+.netflix-carousel-slide.is-active,
+.netflix-carousel-slide {
+  transform: none !important;
+}
+/* Inner video card (no zoom, subtle shadow) */
+.netflix-carousel-card,
+.carousel-slide .video-item,
+.netflix-carousel-slide .video-item {
+  box-shadow: 0 1.4px 12px #53399619, 0 0px 3px #9a7ecf13;
+  border-radius: 13px;
+  background: #16101e;
+  transition: box-shadow 0.2s;
+  filter: none;
+}
+.carousel-slide .video-item:active,
+.carousel-slide .video-item:focus-within,
+.carousel-slide .video-item:hover {
+  box-shadow: 0 2px 14px #8c6ac031, 0 1.3px 9px #cbbdfc29;
+}
+/* ============ Carousel Controls ============== */
+.carousel-controls,
+.netflix-carousel-controls {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /* === VERTICALLY CENTER THE CONTROLS === */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  height: 0;
+  padding: 0;
+  /* removes the up position and puts them at the center of the section */
+}
+.carousel-arrow {
+  pointer-events: auto;
+  background: #221642;
+  border: 0;
+  border-radius: 40px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+  cursor: pointer;
+  transition: box-shadow 0.25s cubic-bezier(0.5, 1.2, 0.5, 1),
+    border 0.18s cubic-bezier(0.5, 1.2, 0.5, 1),
+    background 0.22s cubic-bezier(0.5, 1.4, 0.7, 1.1);
+  font-size: 26px;
+  outline: none;
+  box-shadow: 0 2px 12px #a494cc18;
+  border: 2.5px solid rgba(221, 214, 255, 0.04);
+  position: relative;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+.carousel-arrow:focus,
+.carousel-arrow:hover {
+  box-shadow: 0 0 0 4px #c7aeff33, 0 2px 13px #a98cff21;
+  border-color: #b489ff;
+  background: #362568;
+}
+.carousel-arrow:active {
+  border-color: #ae31ef;
+  background: #59338a;
+}
+.carousel-arrow:disabled {
+  opacity: 0.28;
+  pointer-events: none;
+}
 
 .carousel-track {
   display: flex;
@@ -2350,7 +2394,6 @@ section p {
   }
 }
 
-
 /* === Luxury Shadow & Depth for Active Panels === */
 .glass-panel.gradient.tilt-card:hover {
   box-shadow: 0 10px 25px rgba(200, 83, 255, 0.15),
@@ -2396,6 +2439,88 @@ section p {
   transition: color 0.3s ease;
 }
 
+/* ==== YOUR ORIGINAL (unchanged except softer glow) ==== */
+.profile-image {
+  width: 120px; /* slightly smaller so it doesn’t dominate */
+  height: 120px;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15); /* thinner, subtle glass border */
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(185, 122, 255, 0.2); /* softer glow */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.profile-image {
+  border: 0.3px solid transparent;
+  background: linear-gradient(135deg, #b97aff, #ff6ec4) border-box;
+  border-radius: 50%;
+  padding: 2.9px; /* gradient ring thickness */
+}
+
+.about-me:hover .profile-image {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(185, 122, 255, 0.3);
+}
+
+/* Elevate h2 for elegance */
+.about-me h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #b97aff, #ff6ec4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==== ADDITIONS (non-breaking, no size change) ==== */
+.profile-image {
+  box-sizing: border-box;
+  display: block; /* avoids inline gap issues */
+  aspect-ratio: 1 / 1; /* guarantees perfect circle */
+  background: linear-gradient(#0000, #0000) padding-box,
+    linear-gradient(135deg, #b97aff, #ff6ec4, #00f2fe, #f9d423) border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 300%;
+  background-position: 0 0, 0% 50%;
+  animation: ringShift 4s linear infinite, breatheGlow 6s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 18px rgba(185, 122, 255, 0.12));
+}
+
+/* Subtle animated ring movement */
+@keyframes ringShift {
+  0% {
+    background-position: 0 0, 0% 50%;
+  }
+  50% {
+    background-position: 0 0, 100% 50%;
+  }
+  100% {
+    background-position: 0 0, 0% 50%;
+  }
+}
+
+/* Softer breathing glow */
+@keyframes breatheGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 16px rgba(185, 122, 255, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.35))
+      drop-shadow(0 0 24px rgba(185, 122, 255, 0.18));
+  }
+}
+
+.about-me p {
+  font-size: 1.08rem;
+  line-height: 1.18;
+  margin-bottom: 1rem;
+}
+
 /* === Footer Signature (Aditya Pandey) === */
 .about-me .footer-signature {
   font-family: "Dancing Script", cursive;
@@ -2404,6 +2529,19 @@ section p {
   color: #b97aff; /* Subtle purple */
   margin-top: 20px;
   transition: color 0.3s ease;
+}
+
+.footer-signature {
+  position: relative;
+}
+.footer-signature::after {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, #b97aff, transparent);
+  left: 0;
+  bottom: -6px;
 }
 
 /* === Hover Effects for Both === */
@@ -2421,6 +2559,38 @@ section p {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* === Tagline Highlight === */
+.about-me .tagline-highlight {
+  font-family: "Kalam", cursive;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, #9b7bff, #ff00b3, #f78ca0, #c471f7);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: taglineGradient 8s ease-in-out infinite alternate;
+  letter-spacing: 0.5px;
+}
+
+/* Gradient animation */
+@keyframes taglineGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-me .tagline-highlight {
+    display: none !important;
   }
 }
 
@@ -2650,9 +2820,26 @@ section p {
 }
 
 .compact-footer-heading {
+  background: linear-gradient(90deg, #7dd3fc, #c084fc, #f472b6, #fb7185);
+  background-size: 300% 300%; /* gives it room to move */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  animation: footerGradient 6s ease infinite;
+}
+
+/* Gradient animation */
+@keyframes footerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .compact-footer-grid {
