@@ -240,7 +240,6 @@ export default function VideoPortfolio() {
             </div>
           </div>
         )}
-
         {/* MOBILE/TABLET: improved carousel */}
         {isMobileOrTablet && (
           <div className="video-carousel-container netflix-canvas">
@@ -334,7 +333,6 @@ export default function VideoPortfolio() {
                       boxShadow: "0 0 28px 0 rgba(200,83,255,0.12)",
                     }}
                     onClick={() => {
-                      // center on tap if not center, else do nothing (play is the thumbnail overlay)
                       if (!isCenter) {
                         goToIndex(i);
                       }
@@ -386,14 +384,12 @@ export default function VideoPortfolio() {
                             className="thumbnail-image w-full h-full object-cover rounded-xl"
                           />
 
-                          {/* youtube logo: center only -> parallax + active styling */}
                           <motion.img
                             src="/thumbnail/youtube-logo.png"
                             alt="Play"
                             className={`youtube-logo absolute inset-0 m-auto grayscale ${
                               isCenter ? "center-active" : ""
                             }`}
-                            // subtle parallax only for center (mobile)
                             animate={isCenter ? { y: [-2, 2, -2] } : { y: 0 }}
                             transition={
                               isCenter
@@ -405,7 +401,6 @@ export default function VideoPortfolio() {
                                 : { duration: 0.2 }
                             }
                             onClick={(e) => {
-                              // play when logo is tapped
                               e.stopPropagation();
                               handleClickPlay(
                                 i,
@@ -421,6 +416,18 @@ export default function VideoPortfolio() {
                   </motion.div>
                 );
               })}
+            </div>
+
+            {/* ✅ Dot Progress Bar */}
+            <div className="dots-container">
+              {videoData.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToIndex(index)}
+                  className={`dot ${centerIndex === index ? "active" : ""}`}
+                  aria-label={`Go to video ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         )}
