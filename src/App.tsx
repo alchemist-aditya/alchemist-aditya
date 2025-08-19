@@ -394,8 +394,19 @@ const App = () => {
           <motion.section
             className="about-me"
             whileHover={{ scale: 1.02, rotateX: 4, rotateY: -4 }}
-            transition={{ type: "spring", stiffness: 100, damping: 12 }}
+            transition={{ type: "spring", stiffness: 150, damping: 8 }}
           >
+            {/* Profile Picture */}
+            <motion.img
+              src="/assets/adityaprofile.jpg"
+              alt="Aditya Pandey"
+              className="profile-image"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            {/* Title */}
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -404,16 +415,16 @@ const App = () => {
               About Me
             </motion.h2>
 
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               More than a video editor, I design solutions that make content
-              creation faster, smarter, and more efficient. From short-form
-              edits to custom tools in After Effects, I focus on fixing real
-              bottlenecks — whether it's saving time or improving how content
-              hits on social.
+              creation faster and smarter — from edits that hook viewers in the
+              first three seconds to custom tools in After Effects that cut
+              hours of repetitive work.
             </motion.p>
 
             <motion.p
@@ -423,15 +434,27 @@ const App = () => {
             >
               One of my favorites is a custom{" "}
               <span className="script-highlight">Script UI Panel</span> in After
-              Effects that automates proximity-based animation — cutting
-              repetitive work and unlocking faster creative flow.
+              Effects that automates proximity-based animation, freeing up time
+              for creative choices and storytelling instead of repetitive
+              keyframes.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            >
+              <span className="tagline-highlight">
+                I work with one goal: giving creators the freedom to make
+                without the wait.
+              </span>
             </motion.p>
 
             <motion.p
               className="footer-signature"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             >
               — Aditya Pandey
             </motion.p>
