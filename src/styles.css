@@ -1441,6 +1441,7 @@ header h1 {
 .creators-highlight:hover,
 .headline-line.glow-text:hover {
   color: #c084fc; /* KEEP the same color on hover */
+font-weight: 500;
   text-shadow: 0 0 2px #f472b6, 0 0 4px #f472b6; /* very subtle soft pink shadow */
 }
 
