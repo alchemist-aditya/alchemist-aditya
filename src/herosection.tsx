@@ -183,10 +183,10 @@ export default function HeroPortfolio() {
             }}
           >
             Book a Free Call
-          </motion.button>
+   </motion.button>
         </header>
 
-  {/* Animated scroll indicator */}
+        {/* Animated scroll indicator */}
         <motion.div
           className="scroll-indicator"
           initial={{ opacity: 0, y: 10 }}
@@ -205,4 +205,5 @@ export default function HeroPortfolio() {
     </main>
   );
 }
+
 
