@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import SplitType from "split-type";
 import "./styles.css";
+import { ChevronDown } from "lucide-react"; // Import the arrow icon
 
 const phrases = [
   "Creators and Coaches",
@@ -213,6 +214,7 @@ export default function HeroPortfolio() {
     </main>
   );
 }
+
 
 
 
