@@ -65,6 +65,14 @@ export default function HeroPortfolio() {
     // else let default behavior (Calendly link) happen
   };
 
+  // Function to scroll to next section
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById("what-i-do-section");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <main>
       <div ref={bgRef} className="netlify-dot-grid"></div>
@@ -205,5 +213,6 @@ export default function HeroPortfolio() {
     </main>
   );
 }
+
 
 
