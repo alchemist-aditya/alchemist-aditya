@@ -185,7 +185,24 @@ export default function HeroPortfolio() {
             Book a Free Call
           </motion.button>
         </header>
+
+  {/* Animated scroll indicator */}
+        <motion.div
+          className="scroll-indicator"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          onClick={scrollToNextSection}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={35} />
+          </motion.div>
+        </motion.div>
       </section>
     </main>
   );
 }
+
