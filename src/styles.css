@@ -28,7 +28,6 @@ body {
 
   /* Allow scroll but remove overscroll glow/bounce */
   overflow-y: auto;
-  overscroll-behavior-y: none;
 }
 
 /* === Global Reset === */
