@@ -412,55 +412,54 @@ const App = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              About Me
-            </motion.h2>
+             About Me
+</motion.h2>
 
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            >
-              More than a video editor, I design solutions that make content
-              creation faster and smarter — from edits that hook viewers in the
-              first three seconds to custom tools in After Effects that cut
-              hours of repetitive work.
-            </motion.p>
+{/* Description */}
+<motion.p
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+>
+  More than a video editor, I design solutions that make content creation faster
+  and smarter — from edits that hook viewers in the first three seconds to custom
+  extensions and automation tools inside After Effects that cut hours of
+  repetitive work.
+</motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            >
-              One of my favorites is a custom{" "}
-              <span className="script-highlight">Script UI Panel</span> in After
-              Effects that automates proximity-based animation, freeing up time
-              for creative choices and storytelling instead of repetitive
-              keyframes.
-            </motion.p>
+<motion.p
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+>
+  One of my core creations is the{" "}
+  <span className="script-highlight">EasyChoose Universal Launcher</span> —
+  a productivity plugin that instantly applies effects, expressions, presets,
+  tools, and motion systems, alongside custom workflow extensions built to speed
+  up complex animation tasks.
+</motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            >
-              <span className="tagline-highlight">
-                I work with one goal: giving creators the freedom to make
-                without the wait.
-              </span>
-            </motion.p>
+<motion.p
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+>
+  <span className="tagline-highlight">
+    I work with one goal: giving creators the freedom to make without the wait.
+  </span>
+</motion.p>
 
-            <motion.p
-              className="footer-signature"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-            >
-              — Aditya Pandey
-            </motion.p>
-          </motion.section>
-        </Section>
-      </section>
+<motion.p
+  className="footer-signature"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+>
+  — Aditya Pandey
+</motion.p>
+</motion.section>
+</Section>
+</section>
 
       <section id="calendly-section">
         <Section>
